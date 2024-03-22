@@ -1,0 +1,36 @@
+:root {
+  --red-color: #dc3e22;
+  --marker-color: #b7280f;
+  --color-white: #fff;
+  --color-text: #333;
+  --gray-color: #f4f4f4;
+  --green-color: #a8b64f;
+  --green-hover: #899441;
+  --placeholder: #999;
+  --border: #e4e4e4;
+  --border-circle: #c4c4c4;
+  --pause-task-color: #ffff8b;
+  --ec-color: #ececec;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+
