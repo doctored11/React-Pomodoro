@@ -30,7 +30,7 @@ export function TaskMaker() {
     if (!isValid) return; 
 
     const newTask: taskProp = {
-      id: taskArr.length + 1,
+      id: taskArr.length + Date.now(),
       title: stroke,
       count: 1,
       edit: false,
