@@ -107,7 +107,8 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "*": ["src/*"]
+      "*": ["src/*"],
+      "source/*": ["src/source/*"]
     },
     "moduleResolution": "node"
   }

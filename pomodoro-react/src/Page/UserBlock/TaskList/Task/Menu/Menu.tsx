@@ -4,13 +4,15 @@ import { DropDown } from "./DropDown/DropDown";
 import { DropItemIco } from "./itemTypes/DropItemIco/DropItemIco";
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import { DropItemAssociated } from "./itemTypes/DropItemAssociated/DropItemAssociated";
+// import { EIcons, Icon } from 'source/Icons/Icon'; - почему так не могу(
+import { EIcons, Icon } from "../../../../../source/Icons/Icon";
 
 export interface TaskMenuProps {
   onDelete: () => void;
   onUpdate?: (updatedTask: taskProp | null) => void;
-  onIncrementCount:() => void
-  onDecrementCount: () => void
-  rename: React.Dispatch<React.SetStateAction<boolean>>
+  onIncrementCount: () => void;
+  onDecrementCount: () => void;
+  rename: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function Menu({
@@ -37,22 +39,9 @@ export function Menu({
 
   const block = (
     <div className="menu">
-      <DropDown
-        button={buttonMenu}
-      >
+      <DropDown button={buttonMenu}>
         <DropItemIco text="Удалить" specialClass="yellow" onClick={onDelete}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="12"
-            viewBox="0 0 14 12"
-            fill="none"
-          >
-            <path
-              d="M0 12H14L7 0L0 12ZM7.63636 10.1053H6.36364V8.8421H7.63636V10.1053ZM7.63636 7.57895H6.36364V5.05263H7.63636V7.57895Z"
-              fill="#999999"
-            />
-          </svg>
+        <Icon name={EIcons.del} size={40} />
         </DropItemIco>
 
         <DropItemIco
@@ -60,36 +49,15 @@ export function Menu({
           specialClass="yellow"
           onClick={onDecrementCount}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="12"
-            viewBox="0 0 14 12"
-            fill="none"
-          >
-            <path
-              d="M0 12H14L7 0L0 12ZM7.63636 10.1053H6.36364V8.8421H7.63636V10.1053ZM7.63636 7.57895H6.36364V5.05263H7.63636V7.57895Z"
-              fill="#999999"
-            />
-          </svg>
+          
+          <Icon name={EIcons.min} size={40} />
         </DropItemIco>
         <DropItemIco
           text="++1"
           specialClass="yellow"
           onClick={onIncrementCount}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="12"
-            viewBox="0 0 14 12"
-            fill="none"
-          >
-            <path
-              d="M0 12H14L7 0L0 12ZM7.63636 10.1053H6.36364V8.8421H7.63636V10.1053ZM7.63636 7.57895H6.36364V5.05263H7.63636V7.57895Z"
-              fill="#999999"
-            />
-          </svg>
+          <Icon name={EIcons.plus} size={40} />
         </DropItemIco>
 
         <DropItemAssociated
@@ -97,18 +65,7 @@ export function Menu({
           specialClass="yellow"
           onClick={() => rename(true)}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="12"
-            viewBox="0 0 14 12"
-            fill="none"
-          >
-            <path
-              d="M0 12H14L7 0L0 12ZM7.63636 10.1053H6.36364V8.8421H7.63636V10.1053ZM7.63636 7.57895H6.36364V5.05263H7.63636V7.57895Z"
-              fill="#999999"
-            />
-          </svg>
+          <Icon name={EIcons.edit} />
         </DropItemAssociated>
       </DropDown>
     </div>
