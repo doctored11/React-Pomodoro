@@ -16,24 +16,17 @@ export function DropDown({
   button,
   children,
   isOpen,
-  onClose = NOOP,
-  onOpen = NOOP,
+ 
 }: IDropDownProps) {
   
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(isOpen);
 
-  React.useEffect(() => {
-    setIsDropdownOpen(isOpen);
-  }, [isOpen]);
-
-  React.useEffect(() => {
-    isDropdownOpen ? onOpen() : onClose();
-  }, [isDropdownOpen]);
+  // React.useEffect(() => {
+  //   setIsDropdownOpen(isOpen);
+  // }, [isOpen]);
 
   const handleOpen = () => {
-    if (isOpen === undefined) {
       setIsDropdownOpen(!isDropdownOpen);
-    }
   };
 
   const dropDown = (

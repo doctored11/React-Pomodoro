@@ -6,7 +6,7 @@ interface DropItemIcoProps {
   children: React.ReactNode;
   text: string;
   specialClass?: string;
-  onClick?: (() => void) | ((updatedTask: taskProp | null) => void);
+  onClick?: ((taskId?: number) => void) | ((updatedTask?: taskProp | null) => void);
 }
 
 const NOOP = () => {};
@@ -18,7 +18,7 @@ export function DropItemIco({
   onClick = NOOP,
 }: DropItemIcoProps) {
   const handleClick = () => {
-    onClick(null);
+    onClick();
   };
 
   const block = (

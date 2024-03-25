@@ -8,14 +8,13 @@ import { DropItemAssociated } from "./itemTypes/DropItemAssociated/DropItemAssoc
 export interface TaskMenuProps {
   onDelete: () => void;
   onUpdate?: (updatedTask: taskProp | null) => void;
-  onIncrementCount: () => void;
-  onDecrementCount: () => void;
+  onIncrementCount:() => void
+  onDecrementCount: () => void
   rename: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export function Menu({
   onDelete,
-  // onUpdate,
   onIncrementCount,
   onDecrementCount,
   rename,
@@ -36,16 +35,9 @@ export function Menu({
     </button>
   );
 
-  // const handleItemClick = (content: string) => {
-  //   console.log("клик по:", content);
-  // };
-
-  const isDesktop = window.innerWidth > 768;
   const block = (
     <div className="menu">
       <DropDown
-        onOpen={() => console.log("Открытие")}
-        onClose={() => console.log("закрытие")}
         button={buttonMenu}
       >
         <DropItemIco text="Удалить" specialClass="yellow" onClick={onDelete}>
