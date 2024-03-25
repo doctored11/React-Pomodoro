@@ -1,0 +1,31 @@
+.d-item{
+  display: flex;
+  padding: 11px 17px;
+  align-items: center;
+  width: 100%;
+
+  justify-content: center;
+  background-color: #D9D9D9;
+}
+.drop-svg-block {
+  margin-right: 5px;
+}
+.d-content {
+  color: #ffffff;
+  margin: 0;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.yellow:hover {
+  border-radius: 7px;
+  background-color: #fbffc4;
+  border: 1px solid #ffaf1a;
+}
+.red:hover {
+  border-radius: 7px;
+  background-color: #ffb4b4;
+  border: 1px solid #f81111;
+}

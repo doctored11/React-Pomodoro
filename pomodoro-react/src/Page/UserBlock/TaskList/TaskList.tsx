@@ -7,13 +7,33 @@ export function TaskList() {
   const { taskArr, setTaskArr } = useContext(TasksContext);
 
   const handleDelete = (taskId: number) => {
-    const updatedTasks = taskArr.filter((task) => task.id != taskId);
+    const updatedTasks = taskArr.filter((task) => task.id !== taskId);
     setTaskArr(updatedTasks);
   };
-// передать 
-  const handleUpdate = (updatedTask: taskProp) => {
+
+  
+  useEffect(() => {
+    
+    console.log("спсок задач обновлен - ", taskArr);
+  }, [taskArr]);
+  
+
+  const handleIncrement = (taskId: number) => {
     const updatedTasks = taskArr.map((task) => {
-      return task = task.id == updatedTask.id ? updatedTask : task;
+      if (task.id === taskId) {
+        return { ...task, count: task.count + 1 };
+      }
+      return task;
+    });
+    setTaskArr(updatedTasks);
+  };
+
+  const handleDecrement = (taskId: number) => {
+    const updatedTasks = taskArr.map((task) => {
+      if (task.id === taskId && task.count > 0) {
+        return { ...task, count: task.count - 1 };
+      }
+      return task;
     });
     setTaskArr(updatedTasks);
   };
@@ -25,7 +45,9 @@ export function TaskList() {
           key={task.id}
           task={task}
           onDelete={() => handleDelete(task.id)}
-          onUpdate={handleUpdate}
+          setTaskArr={setTaskArr} 
+          onIncrement={() => handleIncrement(task.id)}
+          onDecrement={() => handleDecrement(task.id)}
         />
       ))}
     </div>

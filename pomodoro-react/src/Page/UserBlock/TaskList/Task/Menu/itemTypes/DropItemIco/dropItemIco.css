@@ -1,0 +1,29 @@
+.drop-item {
+  display: flex;
+  padding: 11px 17px;
+  align-items: center;
+  width: 100%;
+}
+.drop-svg-block{
+    margin-right: 5px;
+}
+.drop-content {
+  color: #999;
+  margin: 0;
+
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.yellow:hover{
+    border-radius: 2px;
+    background-color: #fbffc4;
+    border: 1px solid #ffaf1a;
+}
+.red:hover{
+    border-radius: 2px;
+    background-color: #ffb4b4;
+    border: 1px solid #f81111;
+
+}
