@@ -6,6 +6,7 @@ import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import { DropItemAssociated } from "./itemTypes/DropItemAssociated/DropItemAssociated";
 // import { EIcons, Icon } from 'source/Icons/Icon'; - почему так не могу(
 import { EIcons, Icon } from "../../../../../source/Icons/Icon";
+import styles from "./menu.module.css"
 
 export interface TaskMenuProps {
   onDelete: () => void;
@@ -22,7 +23,7 @@ export function Menu({
   rename,
 }: TaskMenuProps) {
   const buttonMenu = (
-    <button className="menu__btn">
+    <button className={styles.menu__btn}>
       <svg
         width="26"
         height="6"

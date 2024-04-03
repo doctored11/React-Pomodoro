@@ -1,17 +1,22 @@
-.d-item{
+.dropItem{
   display: flex;
   padding: 11px 17px;
   align-items: center;
   width: 100%;
 
   justify-content: center;
-  background-color: #D9D9D9;
+  background-color: var(--color-white);
+
 }
-.drop-svg-block {
+.dropSvgBlock {
   margin-right: 5px;
 }
-.d-content {
-  color: #ffffff;
+
+/* .dropItem{
+  display: flex;
+} */
+.dropContent {
+  color: var(--color-text);;
   margin: 0;
 
   font-size: 14px;

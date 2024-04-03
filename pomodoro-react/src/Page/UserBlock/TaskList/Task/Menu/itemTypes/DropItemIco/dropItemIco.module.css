@@ -1,14 +1,14 @@
-.drop-item {
+.dropItem {
   display: flex;
   padding: 11px 17px;
   align-items: center;
   width: 100%;
 }
-.drop-svg-block{
+.dropSvgBlock{
     margin-right: 5px;
 }
-.drop-content {
-  color: #999;
+.dropContent {
+  color: var(--color-text);
   margin: 0;
 
   font-size: 12px;
@@ -26,4 +26,8 @@
     background-color: #ffb4b4;
     border: 1px solid #f81111;
 
+}
+.dropItem:hover{
+  cursor: pointer;
+  background-color: var(--gray-color);
 }

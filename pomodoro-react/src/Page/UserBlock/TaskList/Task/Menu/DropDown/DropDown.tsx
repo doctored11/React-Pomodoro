@@ -1,6 +1,6 @@
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import * as React from "react";
-// import "./dropDown.css";
+import style from "./dropDown.module.css";
 
 
 interface IDropDownProps {
@@ -30,10 +30,10 @@ export function DropDown({
   };
 
   const dropDown = (
-    <div className="container">
-      <div className="list-container" onClick={handleOpen}>
-        {button}
-        {isDropdownOpen && <div className="list">{children}</div>}
+    <div className={style.container}>
+      <div className={style.listContainer} onClick={handleOpen}>
+        {button }
+        {isDropdownOpen && <div className={style.list}>{children}</div>}
       </div>
     </div>
   );

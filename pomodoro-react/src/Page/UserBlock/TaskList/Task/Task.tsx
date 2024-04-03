@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import style from "./task.module.css";
 import { Menu } from "./Menu/Menu";
-import { TasksContext } from "Page/UserBlock/UserBlock";
+
 import { useInputHandler } from "./useInputHandler";
 
 export interface ViewTaskProps {

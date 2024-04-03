@@ -1,0 +1,14 @@
+.container {
+  position: absolute;
+  
+  /* z-index: 3; */
+}
+.list {
+  position: relative;
+  z-index: 5;
+  border: solid 1px var(--border);
+  background-color: var(--color-white);
+}
+.list > *{
+    z-index: 6;
+}

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./task.maker.module.css";
-import { TasksContext } from "../UserBlock";
+import { TasksContext } from "../../Page";
 
 export interface taskProp {
   id: number;

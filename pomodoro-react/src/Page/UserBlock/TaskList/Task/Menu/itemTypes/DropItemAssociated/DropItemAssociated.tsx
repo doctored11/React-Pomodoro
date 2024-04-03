@@ -1,5 +1,5 @@
 import * as React from "react";
-// import "./dropItemIco.css";
+import styles from "./dropItem.module.css";
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 
 interface DropItemAssociatedProps {
@@ -7,7 +7,7 @@ interface DropItemAssociatedProps {
   text: string;
   specialClass?: string;
 
-  onClick?: () => void; 
+  onClick?: () => void;
 }
 
 const NOOP = () => {};
@@ -17,16 +17,14 @@ export function DropItemAssociated({
   text,
   specialClass = "",
   onClick = NOOP,
-  
 }: DropItemAssociatedProps) {
- 
-
   return (
-    <div className={`drop-item ${specialClass}`}>
-      <div className="drop-svg-block">{children}</div>
-      <div className="drop-content-block">
-        <p className="drop-content">{text}</p>
-        <button onClick={onClick}>Изменить название</button>
+    <div className={`${styles.dropItem} styles.${specialClass}`}>
+      <div className={styles.dropSvgBlock}>{children}</div>
+      <div className={styles.dropContentBlock}>
+        <button className={styles.dropContent} onClick={onClick}>
+          {text}
+        </button>
       </div>
     </div>
   );

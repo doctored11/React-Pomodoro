@@ -1,7 +1,8 @@
 import React, {  useContext, useEffect } from "react";
-import { TasksContext } from "../UserBlock";
+
 import { taskProp } from "../TaskMaker/TaskMaker";
 import { Task } from "./Task/Task";
+import { TasksContext } from "../../Page";
 
 export function TaskList() {
   const { taskArr, setTaskArr } = useContext(TasksContext);
