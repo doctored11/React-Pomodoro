@@ -8,20 +8,22 @@ interface TimerProps {
 }
 
 export function Timer({ taskArr, setTaskArr }: TimerProps) {
-  const timeForPomodor = 5; //пока 60 сек на таск
-  const pauseTime = 10;
-
   const [isRunning, setIsRunning] = useState(false);
-  const [isPomodorDone, setPomodorStatus] = useState(false);
-  const [seconds, setSeconds] = useState(timeForPomodor);
+  const [isPomodoroDone, setPomodoroDone] = useState(false);
 
-  //   Todo - разобраться с логикой по тз у помодоро
+  const pomodoroDuration = 0.3 * 60;
+  const shortBreakDuration = 0.1 * 60;
+  const longBreakDuration = 2 * 60;
+  const pomodoroCountToLongBreak = 4;
 
-  function pomodorFinished() {
-    const task: taskProp = getActiveTask();
+  const [seconds, setSeconds] = useState(pomodoroDuration);
+  const [pomodoroCount, setPomodoroCount] = useState(0);
+
+  function pomodorFinished(taskArr: taskProp[]) {
+    const task: taskProp = getActiveTask(taskArr);
     const updatedTaskArr = [...taskArr];
     task.count -= 1;
-    setPomodorStatus(true);
+    setPomodoroDone(true);
 
     updatedTaskArr.splice(0, 1, task);
     if (task.count <= 0) {
@@ -29,6 +31,7 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
     } else {
       setTaskArr(updatedTaskArr);
       handleStartStop();
+     
     }
 
     return 0;
@@ -36,17 +39,20 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
 
   function taskFinished(task: taskProp) {
     const updatedTaskArr = [...taskArr];
-    task.task_finished = true;
-    updatedTaskArr.splice(0, 1, task); // надо в какой то момент удалять те что выполнены ( и давать помидоры):при переключении таймера
-    setTaskArr(updatedTaskArr);
-    handleStartStop();
+    if (updatedTaskArr[0].count <= 0) {
+      console.log("tf, " + updatedTaskArr);
+      task.task_finished = true;
+      updatedTaskArr.splice(0, 1);
+      setTaskArr(updatedTaskArr);
+      handleStartStop();
+    }
 
     return 0;
   }
 
-  function getActiveTask() {
+  function getActiveTask(Arr: taskProp[]) {
     //Todo - сделать номрмальным ( получать первый несделанный)
-    const updatedTaskArr = [...taskArr];
+    const updatedTaskArr = [...Arr];
 
     const task: taskProp = updatedTaskArr[0];
     return task;
@@ -54,35 +60,63 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
 
   useEffect(() => {
     let timerID: NodeJS.Timeout;
-    setSeconds(isPomodorDone ? pauseTime : timeForPomodor);
 
-    if (isRunning && !isPomodorDone) { //нужна логика за окончание таска и помидора
+    if (isRunning ) {
       timerID = setInterval(() => {
-        setSeconds((prevSeconds) =>
-          prevSeconds <= 0 ? pomodorFinished() : prevSeconds - 1
-        );
+        setSeconds((prevSeconds) => {
+          if (prevSeconds <= 0) {
+            if (isPomodoroDone) {
+              setPomodoroDone(false);
+              handleStartStop();
+              return 0;
+            } else {
+              pomodorFinished(taskArr);
+              return 0;
+            }
+          } else {
+            return prevSeconds - 1;
+          }
+        });
       }, 1000);
     }
     
-
     return () => clearInterval(timerID);
-  }, [isRunning]);
+  }, [isRunning, isPomodoroDone, taskArr]);
+
+  useEffect(() => {
+    console.log("-__ " + isPomodoroDone);
+    if (isPomodoroDone) {
+      setPomodoroCount(pomodoroCount + 1);
+      if (pomodoroCount == pomodoroCountToLongBreak) {
+        setSeconds(longBreakDuration);
+      } else {
+        setSeconds(shortBreakDuration);
+      }
+      // setPomodoroDone(false);
+    } else {
+      setSeconds(pomodoroDuration);
+    }
+  }, [isPomodoroDone]);
 
   function handleStartStop() {
-    if (!getActiveTask()) return;
+    if (!taskArr.length) return;
 
     setIsRunning(!isRunning);
   }
 
   function handleReset() {
-    const task = getActiveTask();
-    setSeconds(timeForPomodor);
     setIsRunning(false);
+    setPomodoroDone(false);
+    setPomodoroCount(0);
+    setSeconds(pomodoroDuration);
   }
 
   return (
     <div>
-      <div className={styles.timer}>{seconds}</div>
+      <div className={styles.timer}>
+        {Math.floor(seconds / 60)}:
+        {seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60}
+      </div>
       <button
         className={`${styles.btn} ${styles.btnTarget}`}
         onClick={handleStartStop}
@@ -90,7 +124,7 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
         {isRunning ? "Пауза" : "Старт"}
       </button>
       <button className={styles.btn} onClick={handleReset}>
-        Стопъ
+        Сброс
       </button>
     </div>
   );
