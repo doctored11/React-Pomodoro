@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./timer.module.css";
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
+import { getActiveTask, handleTaskFinished, handleTimer, reduceTaskCount } from "./timerScript";
+
+// timerConstants.ts
+const POMODORO_DURATION = 0.3 * 60;
+const SHORT_BREAK_DURATION = 0.1 * 60;
+const LONG_BREAK_DURATION = 2 * 60;
+const POMODORO_COUNT_TO_LONG_BREAK = 4;
 
 interface TimerProps {
   taskArr: taskProp[];
@@ -10,105 +17,69 @@ interface TimerProps {
 export function Timer({ taskArr, setTaskArr }: TimerProps) {
   const [isRunning, setIsRunning] = useState(false);
   const [isPomodoroDone, setPomodoroDone] = useState(false);
-
-  const pomodoroDuration = 0.3 * 60;
-  const shortBreakDuration = 0.1 * 60;
-  const longBreakDuration = 2 * 60;
-  const pomodoroCountToLongBreak = 4;
-
-  const [seconds, setSeconds] = useState(pomodoroDuration);
+  const [seconds, setSeconds] = useState(POMODORO_DURATION);
   const [pomodoroCount, setPomodoroCount] = useState(0);
 
-  function pomodorFinished(taskArr: taskProp[]) {
+  function pomodorFinished() {
+    if (!taskArr || taskArr.length < 1) return -1;
     const task: taskProp = getActiveTask(taskArr);
     const updatedTaskArr = [...taskArr];
-    task.count -= 1;
-    setPomodoroDone(true);
 
+    reduceTaskCount(task);
+    setPomodoroDone(true);
     updatedTaskArr.splice(0, 1, task);
+
     if (task.count <= 0) {
-      taskFinished(task);
+      handleTaskFinished(taskArr, task, setTaskArr, handleStartStop);
     } else {
       setTaskArr(updatedTaskArr);
       handleStartStop();
-     
     }
 
     return 0;
   }
 
-  function taskFinished(task: taskProp) {
-    const updatedTaskArr = [...taskArr];
-    if (updatedTaskArr[0].count <= 0) {
-      console.log("tf, " + updatedTaskArr);
-      task.task_finished = true;
-      updatedTaskArr.splice(0, 1);
-      setTaskArr(updatedTaskArr);
-      handleStartStop();
-    }
-
-    return 0;
-  }
-
-  function getActiveTask(Arr: taskProp[]) {
-    //Todo - сделать номрмальным ( получать первый несделанный)
-    const updatedTaskArr = [...Arr];
-
-    const task: taskProp = updatedTaskArr[0];
-    return task;
-  }
+  const handleReset = useCallback(() => {
+    setIsRunning(false);
+    setPomodoroDone(false);
+    setPomodoroCount(0);
+    setSeconds(POMODORO_DURATION);
+  }, []);
 
   useEffect(() => {
     let timerID: NodeJS.Timeout;
-
-    if (isRunning ) {
+    if (isRunning) {
       timerID = setInterval(() => {
-        setSeconds((prevSeconds) => {
-          if (prevSeconds <= 0) {
-            if (isPomodoroDone) {
-              setPomodoroDone(false);
-              handleStartStop();
-              return 0;
-            } else {
-              pomodorFinished(taskArr);
-              return 0;
-            }
-          } else {
-            return prevSeconds - 1;
-          }
-        });
+        setSeconds((prevSeconds) =>
+          handleTimer(
+            prevSeconds,
+            isPomodoroDone,
+            setPomodoroDone,
+            pomodorFinished,
+            handleStartStop
+          )
+        );
       }, 1000);
     }
-    
     return () => clearInterval(timerID);
   }, [isRunning, isPomodoroDone, taskArr]);
 
   useEffect(() => {
-    console.log("-__ " + isPomodoroDone);
     if (isPomodoroDone) {
       setPomodoroCount(pomodoroCount + 1);
-      if (pomodoroCount == pomodoroCountToLongBreak) {
-        setSeconds(longBreakDuration);
-      } else {
-        setSeconds(shortBreakDuration);
-      }
-      // setPomodoroDone(false);
+      setSeconds(
+        pomodoroCount === POMODORO_COUNT_TO_LONG_BREAK
+          ? LONG_BREAK_DURATION
+          : SHORT_BREAK_DURATION
+      );
     } else {
-      setSeconds(pomodoroDuration);
+      setSeconds(POMODORO_DURATION);
     }
   }, [isPomodoroDone]);
 
   function handleStartStop() {
     if (!taskArr.length) return;
-
     setIsRunning(!isRunning);
-  }
-
-  function handleReset() {
-    setIsRunning(false);
-    setPomodoroDone(false);
-    setPomodoroCount(0);
-    setSeconds(pomodoroDuration);
   }
 
   return (
