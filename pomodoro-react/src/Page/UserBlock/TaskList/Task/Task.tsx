@@ -24,10 +24,7 @@ export function Task({ task, setTaskArr, taskArr }: ViewTaskProps) {
   const [isEditing, setIsEditing] = useState(false);
   
 
-  const { handleChangeCount, handleUpdate,handleDelete } = useTaskState({
-    taskArr,
-    setTaskArr,
-  });
+  const { handleChangeCount, handleUpdate,handleDelete } = useTaskState({taskArr,setTaskArr});
 
   const { editedTitle, handleChange } = useInputHandler(task.title);
 
@@ -35,7 +32,7 @@ export function Task({ task, setTaskArr, taskArr }: ViewTaskProps) {
 
   return (
     <li className={style.item}>
-      <div className={style.pomodoroCount}> {task.count}</div>
+      <div className={style.pomodoroCount}> {task.count-task.stage}</div>
       
       {isEditing ? (
         <input

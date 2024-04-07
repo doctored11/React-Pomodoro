@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./timer.module.css";
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
-import { getActiveTask, handleTaskFinished, handleTimer, reduceTaskCount } from "./timerScript";
+import {
+  getActiveTask,
+  handleTaskFinished,
+  handleTimer,
+  setPomodoroInDoing,
+  stageUp,
+} from "./timerScript";
+import { useTaskState } from "../../UserBlock/TaskList/Task/useTaskState";
 
 // timerConstants.ts
 const POMODORO_DURATION = 0.3 * 60;
@@ -15,6 +22,10 @@ interface TimerProps {
 }
 
 export function Timer({ taskArr, setTaskArr }: TimerProps) {
+
+  const { handleDelete, handleSetInDoing } = useTaskState({ taskArr, setTaskArr });
+
+  
   const [isRunning, setIsRunning] = useState(false);
   const [isPomodoroDone, setPomodoroDone] = useState(false);
   const [seconds, setSeconds] = useState(POMODORO_DURATION);
@@ -25,12 +36,12 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
     const task: taskProp = getActiveTask(taskArr);
     const updatedTaskArr = [...taskArr];
 
-    reduceTaskCount(task);
+    stageUp(task);
     setPomodoroDone(true);
     updatedTaskArr.splice(0, 1, task);
 
-    if (task.count <= 0) {
-      handleTaskFinished(taskArr, task, setTaskArr, handleStartStop);
+    if (task.stage >= task.count) {
+      handleTaskFinished( task,handleDelete, handleStartStop );
     } else {
       setTaskArr(updatedTaskArr);
       handleStartStop();
@@ -42,7 +53,7 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
   const handleReset = useCallback(() => {
     setIsRunning(false);
     setPomodoroDone(false);
-    setPomodoroCount(0);
+
     setSeconds(POMODORO_DURATION);
   }, []);
 
@@ -56,7 +67,9 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
             isPomodoroDone,
             setPomodoroDone,
             pomodorFinished,
-            handleStartStop
+            handleStartStop,
+            taskArr,
+            setTaskArr
           )
         );
       }, 1000);
@@ -74,11 +87,17 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
       );
     } else {
       setSeconds(POMODORO_DURATION);
+      const task = getActiveTask(taskArr);
+
+      setPomodoroInDoing(task,handleSetInDoing);
     }
   }, [isPomodoroDone]);
 
   function handleStartStop() {
-    if (!taskArr.length) return;
+    if (!taskArr.length) {
+      setIsRunning(false);
+      return;
+    }
     setIsRunning(!isRunning);
   }
 

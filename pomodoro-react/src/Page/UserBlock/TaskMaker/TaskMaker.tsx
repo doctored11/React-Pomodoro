@@ -6,6 +6,8 @@ export interface taskProp {
   id: number;
   title: string;
   count: number;
+  stage:number;
+  in_doing:boolean;
   edit: boolean;
   task_finished: boolean;
 
@@ -33,6 +35,8 @@ export function TaskMaker() {
       id: taskArr.length + Date.now(),
       title: stroke,
       count: 1,
+      stage:0,
+      in_doing:false,
       edit: false,
       task_finished: false,
     };
