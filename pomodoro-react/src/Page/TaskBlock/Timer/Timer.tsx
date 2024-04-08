@@ -20,9 +20,10 @@ const POMODORO_COUNT_TO_LONG_BREAK = 4;
 interface TimerProps {
   taskArr: taskProp[];
   setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>;
+  toggleInProcess: () => void;
 }
 
-export function Timer({ taskArr, setTaskArr }: TimerProps) {
+export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
   const { handleDelete, handleSetInDoing } = useTaskState({
     taskArr,
     setTaskArr,
@@ -46,8 +47,8 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
     setSeconds,
     pomodoroCount,
     setPomodoroCount,
+    toggleInProcess
   });
-
 
 
 

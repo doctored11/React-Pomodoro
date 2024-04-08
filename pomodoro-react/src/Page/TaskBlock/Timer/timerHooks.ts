@@ -25,6 +25,7 @@ interface TimerHooksProps {
   setSeconds: React.Dispatch<React.SetStateAction<number>>;
   pomodoroCount: number;
   setPomodoroCount: React.Dispatch<React.SetStateAction<number>>;
+  toggleInProcess: ()=> void;
 }
 
 export function useTimerHooks({
@@ -38,6 +39,7 @@ export function useTimerHooks({
   setSeconds,
   pomodoroCount,
   setPomodoroCount,
+  toggleInProcess,
 }: TimerHooksProps) {
   const { handleDelete, handleSetInDoing } = useTaskState({
     taskArr,
@@ -57,6 +59,7 @@ export function useTimerHooks({
     setPomodoroDone(false);
     setSeconds(POMODORO_DURATION);
   }, [setIsRunning, setPomodoroDone, setSeconds]);
+
   useEffect(() => {
     let timerID: NodeJS.Timeout;
     if (isRunning) {
@@ -69,7 +72,8 @@ export function useTimerHooks({
             handleStartStop,
             taskArr,
             setTaskArr,
-            handleDelete
+            handleDelete,
+            toggleInProcess,
           )
         );
       }, 1000);

@@ -10,14 +10,16 @@ export function handleTimer(
   taskArr: taskProp[],
   setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>,
   handleDelete: (taskId: number) => void,
+  toggleInProcess:() => void,
 ) {
   if (seconds <= 0) {
     if (isPomodoroDone) {
       setPomodoroDone(false);
       handleStartStop();
+      toggleInProcess()
       return 0;
     } else {
-      pomodorFinished(taskArr,setTaskArr,setPomodoroDone,handleDelete,handleStartStop);
+      pomodorFinished(taskArr,setTaskArr,setPomodoroDone,handleDelete,handleStartStop,toggleInProcess);
       return 0;
     }
   } else {
@@ -68,7 +70,8 @@ function pomodorFinished(
   setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>,
   setPomodoroDone:React.Dispatch<React.SetStateAction<boolean>>,
   handleDelete:Function,
-  handleStartStop: Function
+  handleStartStop: Function,
+  toggleInProcess:Function
 ) {
   if (!taskArr || taskArr.length < 1) return -1;
   const task: taskProp = getActiveTask(taskArr);
@@ -84,6 +87,7 @@ function pomodorFinished(
     setTaskArr(updatedTaskArr);
     handleStartStop();
   }
+  toggleInProcess()
 
   return 0;
 }

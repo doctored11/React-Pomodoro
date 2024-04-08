@@ -6,11 +6,15 @@ import { Timer } from "./Timer/Timer";
 
 export function TaskBlock() {
   const { taskArr, setTaskArr } = useContext(TasksContext);
+  const [isInProcess, setIsInProcess] = useState(true);
+  const toggleInProcess = () => {
+    setIsInProcess(!isInProcess); 
+  };
 
   const block = (
     <div>
-      <TaskHeader task={taskArr[0]}></TaskHeader>
-      <Timer taskArr={taskArr} setTaskArr={setTaskArr}></Timer>
+      <TaskHeader task={taskArr[0]} isInProcess = {isInProcess}/>
+      <Timer taskArr={taskArr} setTaskArr={setTaskArr} toggleInProcess={toggleInProcess}/> 
     </div>
   );
 
