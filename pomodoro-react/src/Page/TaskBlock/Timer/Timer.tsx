@@ -3,14 +3,15 @@ import styles from "./timer.module.css";
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import {
   getActiveTask,
+
   handleTaskFinished,
   handleTimer,
   setPomodoroInDoing,
   stageUp,
 } from "./timerScript";
 import { useTaskState } from "../../UserBlock/TaskList/Task/useTaskState";
+import { useTimerHooks } from "./timerHooks";
 
-// timerConstants.ts
 const POMODORO_DURATION = 0.3 * 60;
 const SHORT_BREAK_DURATION = 0.1 * 60;
 const LONG_BREAK_DURATION = 2 * 60;
@@ -22,84 +23,33 @@ interface TimerProps {
 }
 
 export function Timer({ taskArr, setTaskArr }: TimerProps) {
+  const { handleDelete, handleSetInDoing } = useTaskState({
+    taskArr,
+    setTaskArr,
+  });
+  //так, отделаить состояние таймера от таска ( пауза или помидор - не зависимо от таска)
+  // что то придумать с большим кол вом пропсов
 
-  const { handleDelete, handleSetInDoing } = useTaskState({ taskArr, setTaskArr });
-
-  
   const [isRunning, setIsRunning] = useState(false);
   const [isPomodoroDone, setPomodoroDone] = useState(false);
   const [seconds, setSeconds] = useState(POMODORO_DURATION);
   const [pomodoroCount, setPomodoroCount] = useState(0);
 
-  function pomodorFinished() {
-    if (!taskArr || taskArr.length < 1) return -1;
-    const task: taskProp = getActiveTask(taskArr);
-    const updatedTaskArr = [...taskArr];
+  const { handleStartStop, handleReset } = useTimerHooks({
+    taskArr,
+    setTaskArr,
+    isRunning,
+    setIsRunning,
+    isPomodoroDone,
+    setPomodoroDone,
+    seconds,
+    setSeconds,
+    pomodoroCount,
+    setPomodoroCount,
+  });
 
-    stageUp(task);
-    setPomodoroDone(true);
-    updatedTaskArr.splice(0, 1, task);
 
-    if (task.stage >= task.count) {
-      handleTaskFinished( task,handleDelete, handleStartStop );
-    } else {
-      setTaskArr(updatedTaskArr);
-      handleStartStop();
-    }
 
-    return 0;
-  }
-
-  const handleReset = useCallback(() => {
-    setIsRunning(false);
-    setPomodoroDone(false);
-
-    setSeconds(POMODORO_DURATION);
-  }, []);
-
-  useEffect(() => {
-    let timerID: NodeJS.Timeout;
-    if (isRunning) {
-      timerID = setInterval(() => {
-        setSeconds((prevSeconds) =>
-          handleTimer(
-            prevSeconds,
-            isPomodoroDone,
-            setPomodoroDone,
-            pomodorFinished,
-            handleStartStop,
-            taskArr,
-            setTaskArr
-          )
-        );
-      }, 1000);
-    }
-    return () => clearInterval(timerID);
-  }, [isRunning, isPomodoroDone, taskArr]);
-
-  useEffect(() => {
-    if (isPomodoroDone) {
-      setPomodoroCount(pomodoroCount + 1);
-      setSeconds(
-        pomodoroCount === POMODORO_COUNT_TO_LONG_BREAK
-          ? LONG_BREAK_DURATION
-          : SHORT_BREAK_DURATION
-      );
-    } else {
-      setSeconds(POMODORO_DURATION);
-      const task = getActiveTask(taskArr);
-
-      setPomodoroInDoing(task,handleSetInDoing);
-    }
-  }, [isPomodoroDone]);
-
-  function handleStartStop() {
-    if (!taskArr.length) {
-      setIsRunning(false);
-      return;
-    }
-    setIsRunning(!isRunning);
-  }
 
   return (
     <div>
@@ -113,7 +63,12 @@ export function Timer({ taskArr, setTaskArr }: TimerProps) {
       >
         {isRunning ? "Пауза" : "Старт"}
       </button>
-      <button className={styles.btn} onClick={handleReset}>
+      <button
+        className={styles.btn}
+        onClick={() =>
+        console.log("пусто пока⚠️")
+        }
+      >
         Сброс
       </button>
     </div>

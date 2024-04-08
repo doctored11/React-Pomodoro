@@ -1,15 +1,15 @@
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 import { useTaskState } from "../../UserBlock/TaskList/Task/useTaskState";
 
 export function handleTimer(
   seconds: number,
   isPomodoroDone: boolean,
   setPomodoroDone: Dispatch<SetStateAction<boolean>>,
-  pomodorFinished: Function,
   handleStartStop: Function,
   taskArr: taskProp[],
-  setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>
+  setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>,
+  handleDelete: (taskId: number) => void,
 ) {
   if (seconds <= 0) {
     if (isPomodoroDone) {
@@ -17,7 +17,7 @@ export function handleTimer(
       handleStartStop();
       return 0;
     } else {
-      pomodorFinished();
+      pomodorFinished(taskArr,setTaskArr,setPomodoroDone,handleDelete,handleStartStop);
       return 0;
     }
   } else {
@@ -27,7 +27,7 @@ export function handleTimer(
 
 export function handleTaskFinished(
   task: taskProp,
-  handleDelete:Function,
+  handleDelete: Function,
   handleStartStop: Function
 ) {
   if (task.stage >= task.count) {
@@ -52,7 +52,38 @@ export function stageUp(task: taskProp): void {
   task.stage += 1;
   task.in_doing = false;
 }
-export function setPomodoroInDoing(task: taskProp,handleSetInDoing:Function): void {
+export function setPomodoroInDoing(
+  task: taskProp,
+  handleSetInDoing: Function
+): void {
   if (!task) return;
   handleSetInDoing(task.id, true);
+}
+
+//
+//
+//
+function pomodorFinished(
+  taskArr: taskProp[],
+  setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>,
+  setPomodoroDone:React.Dispatch<React.SetStateAction<boolean>>,
+  handleDelete:Function,
+  handleStartStop: Function
+) {
+  if (!taskArr || taskArr.length < 1) return -1;
+  const task: taskProp = getActiveTask(taskArr);
+  const updatedTaskArr = [...taskArr];
+
+  stageUp(task);
+  setPomodoroDone(true);
+  updatedTaskArr.splice(0, 1, task);
+
+  if (task.stage >= task.count) {
+    handleTaskFinished(task, handleDelete, handleStartStop);
+  } else {
+    setTaskArr(updatedTaskArr);
+    handleStartStop();
+  }
+
+  return 0;
 }

@@ -6,11 +6,10 @@ export interface taskProp {
   id: number;
   title: string;
   count: number;
-  stage:number;
-  in_doing:boolean;
+  stage: number;
+  in_doing: boolean;
   edit: boolean;
   task_finished: boolean;
-
 }
 // вынести хук добавления задачи
 export function TaskMaker() {
@@ -29,22 +28,21 @@ export function TaskMaker() {
 
   const addTask = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!isValid) return; 
+    if (!isValid) return;
 
     const newTask: taskProp = {
       id: taskArr.length + Date.now(),
       title: stroke,
       count: 1,
-      stage:0,
-      in_doing:false,
+      stage: 0,
+      in_doing: taskArr.length > 0 ? false : true,
       edit: false,
       task_finished: false,
     };
     setTaskArr([...taskArr, newTask]);
-    console.log([...taskArr, newTask])
+    console.log([...taskArr, newTask]);
     setStroke("");
   };
-  
 
   return (
     <form className={styles.from} onSubmit={addTask}>
