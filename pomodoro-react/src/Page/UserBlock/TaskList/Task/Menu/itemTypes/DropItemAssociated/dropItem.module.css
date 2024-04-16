@@ -24,13 +24,7 @@
   font-weight: 400;
   line-height: normal;
 }
-.yellow:hover {
-  border-radius: 7px;
-  background-color: #fbffc4;
-  border: 1px solid #ffaf1a;
-}
-.red:hover {
-  border-radius: 7px;
-  background-color: #ffb4b4;
-  border: 1px solid #f81111;
+.dropItem:hover{
+  cursor: pointer;
+  background-color: var(--gray-color);
 }

@@ -25,6 +25,13 @@ export function useTaskState({ taskArr, setTaskArr }: UseTaskStateProps) {
     setTaskArr(updatedTasks);
   };
 
+  const getTaskById = (taskId: number): taskProp | null => {
+    const foundTask = taskArr.find((task) => task.id === taskId);
+    console.log("нАйден таск, ", foundTask)
+    return foundTask ?? null;
+  };
+  
+
   const handleDelete = (taskId: number) => {
     const updatedTasks = taskArr.filter((task) => task.id !== taskId);
     setTaskArr(updatedTasks);
@@ -47,5 +54,6 @@ export function useTaskState({ taskArr, setTaskArr }: UseTaskStateProps) {
     handleSetInDoing,
     taskArr,
     setTaskArr,
+    getTaskById,
   };
 }

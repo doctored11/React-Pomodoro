@@ -1,6 +1,7 @@
 .item{
     display: flex;
     text-decoration: none;
+    position: relative;
     
 }
 .pomodoroCount{

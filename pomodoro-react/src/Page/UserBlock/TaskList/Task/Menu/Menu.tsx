@@ -6,7 +6,7 @@ import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import { DropItemAssociated } from "./itemTypes/DropItemAssociated/DropItemAssociated";
 // import { EIcons, Icon } from 'source/Icons/Icon'; - почему так не могу(
 import { EIcons, Icon } from "../../../../../source/Icons/Icon";
-import styles from "./menu.module.css"
+import styles from "./menu.module.css";
 
 export interface TaskMenuProps {
   onDelete: () => void;
@@ -14,6 +14,7 @@ export interface TaskMenuProps {
   onIncrementCount: () => void;
   onDecrementCount: () => void;
   rename: React.Dispatch<React.SetStateAction<boolean>>;
+  getTask: () => taskProp | null;
 }
 
 export function Menu({
@@ -21,7 +22,11 @@ export function Menu({
   onIncrementCount,
   onDecrementCount,
   rename,
+  getTask,
 }: TaskMenuProps) {
+  let isOpen = false;
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(isOpen);
+
   const buttonMenu = (
     <button className={styles.menu__btn}>
       <svg
@@ -40,32 +45,33 @@ export function Menu({
 
   const block = (
     <div className="menu">
-      <DropDown button={buttonMenu}>
+      {isDropdownOpen && (
+        <div
+          className={styles.outClick}
+          onClick={() => setIsDropdownOpen(false)}
+        ></div>
+      )}
+      <DropDown
+        button={buttonMenu}
+        isDropdownOpen={isDropdownOpen}
+        setIsDropdownOpen={setIsDropdownOpen}
+      >
         <DropItemIco text="Удалить" specialClass="yellow" onClick={onDelete}>
-        <Icon name={EIcons.del} size={40} />
+          <Icon name={EIcons.del} size={40} />
         </DropItemIco>
 
         <DropItemIco
           text="--1"
-          specialClass="yellow"
           onClick={onDecrementCount}
+          disabled={(getTask()?.count ?? 0) <= 1}
         >
-          
           <Icon name={EIcons.min} size={40} />
         </DropItemIco>
-        <DropItemIco
-          text="++1"
-          specialClass="yellow"
-          onClick={onIncrementCount}
-        >
+        <DropItemIco text="++1" onClick={onIncrementCount}>
           <Icon name={EIcons.plus} size={40} />
         </DropItemIco>
 
-        <DropItemAssociated
-          text="Изменить"
-          specialClass="yellow"
-          onClick={() => rename(true)}
-        >
+        <DropItemAssociated text="Изменить" onClick={() => rename(true)}>
           <Icon name={EIcons.edit} />
         </DropItemAssociated>
       </DropDown>
