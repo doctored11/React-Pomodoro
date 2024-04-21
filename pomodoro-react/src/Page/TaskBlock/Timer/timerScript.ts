@@ -65,7 +65,7 @@ export function setPomodoroInDoing(
 //
 //
 //
-function pomodorFinished(
+export function pomodorFinished(
   taskArr: taskProp[],
   setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>,
   setPomodoroDone:React.Dispatch<React.SetStateAction<boolean>>,

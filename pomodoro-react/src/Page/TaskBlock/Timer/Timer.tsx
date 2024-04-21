@@ -3,9 +3,9 @@ import styles from "./timer.module.css";
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import {
   getActiveTask,
-
   handleTaskFinished,
   handleTimer,
+  pomodorFinished,
   setPomodoroInDoing,
   stageUp,
 } from "./timerScript";
@@ -22,14 +22,15 @@ interface TimerProps {
   setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>;
   toggleInProcess: () => void;
 }
+// TODO: связать  toggleInProcess с чем либо ( для уменьшения пропсов и упрощения логики)
 
 export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
   const { handleDelete, handleSetInDoing } = useTaskState({
     taskArr,
     setTaskArr,
   });
-  //так, отделаить состояние таймера от таска ( пауза или помидор - не зависимо от таска)
-  // что то придумать с большим кол вом пропсов
+
+  //TODO что то придумать с большим кол вом пропсов
 
   const [isRunning, setIsRunning] = useState(false);
   const [isPomodoroDone, setPomodoroDone] = useState(false);
@@ -47,10 +48,52 @@ export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
     setSeconds,
     pomodoroCount,
     setPomodoroCount,
-    toggleInProcess
+    toggleInProcess,
   });
 
+  // console.log(taskArr)
 
+  const [btnName, setBtnName] = useState("Стоп");
+  const [btnCallback, setBtnCallback] = useState(() => handleReset);
+  //логика второй кнопки
+  useEffect(() => {
+    if (taskArr[0]?.in_doing) {
+      // это то что мы в задании (помидор)
+      if (isRunning) {
+        //таймер тикает
+        // то СТОП (таймер остановить и вернуть на начальное значение --для выполнения задания сначала)
+        setBtnName("Стоп");
+        setBtnCallback(() => handleReset);
+      } else {
+        //то Сделано (помидор сделан)
+        console.log("Кнопка в статусе:  Сделанно");
+        setBtnName("Сделано");
+        setBtnCallback(() => hardPomodorDone);
+      }
+    } else {
+      // это то что мы в перерыве
+      // то Пропустить Перерыв
+      console.log("Кнопка в статусе:  Пропустить");
+      setBtnName("Пропустить");
+      setBtnCallback(() => skipPause);
+    }
+  }, [taskArr, isRunning, isPomodoroDone]);
+
+  // TODO - сделать чтобы визуально помиоры менялись в списке
+  function hardPomodorDone() {
+    pomodorFinished(
+      taskArr,
+      setTaskArr,
+      setPomodoroDone,
+      handleDelete,
+      handleStartStop,
+      toggleInProcess
+    );
+  }
+  function skipPause() {
+    setPomodoroDone(false);
+    toggleInProcess();
+  }
 
   return (
     <div>
@@ -62,15 +105,14 @@ export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
         className={`${styles.btn} ${styles.btnTarget}`}
         onClick={handleStartStop}
       >
-        {isRunning ? "Пауза" : "Старт"}
+        {isRunning
+          ? "Пауза"
+          : seconds == POMODORO_DURATION
+          ? "Старт"
+          : "Продолжить"}
       </button>
-      <button
-        className={styles.btn}
-        onClick={() =>
-        console.log("пусто пока⚠️")
-        }
-      >
-        Сброс
+      <button className={styles.btn} onClick={() => btnCallback()}>
+        {btnName}
       </button>
     </div>
   );
