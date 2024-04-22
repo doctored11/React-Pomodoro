@@ -1,9 +1,10 @@
-import React, {  useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { taskProp } from "../TaskMaker/TaskMaker";
 import { Task } from "./Task/Task";
 import { TasksContext } from "../../Page";
-import style from "./taskList.module.css"
+import style from "./taskList.module.css";
+import { GeneralTimer } from "./GeneralTimer/GeneralTimer";
 
 export function TaskList() {
   const { taskArr, setTaskArr } = useContext(TasksContext);
@@ -11,18 +12,20 @@ export function TaskList() {
   useEffect(() => {
     console.log("спсок задач обновлен - ", taskArr);
   }, [taskArr]);
-  
 
   return (
-    <div className={style.list}>
-      {taskArr.map((task) => (
-        <Task
-          key={task.id}
-          task={task}
-          setTaskArr={setTaskArr} 
-          taskArr={taskArr}
-        />
-      ))}
-    </div>
+    <>
+      <div className={style.list}>
+        {taskArr.map((task) => (
+          <Task
+            key={task.id}
+            task={task}
+            setTaskArr={setTaskArr}
+            taskArr={taskArr}
+          />
+        ))}
+      </div>{" "}
+      <GeneralTimer taskArr={taskArr}></GeneralTimer>
+    </>
   );
 }

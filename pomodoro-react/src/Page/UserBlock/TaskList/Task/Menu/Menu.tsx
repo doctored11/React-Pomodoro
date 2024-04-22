@@ -44,7 +44,7 @@ export function Menu({
   );
 
   const block = (
-    <div className="menu">
+    <div className={styles.menu}>
       {isDropdownOpen && (
         <div
           className={styles.outClick}

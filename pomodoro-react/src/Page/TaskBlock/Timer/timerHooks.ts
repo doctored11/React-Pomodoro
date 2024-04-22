@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from "react";
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import {
+  handleTimePlus,
   handleTimer,
   handleTaskFinished,
   getActiveTask,
@@ -13,6 +14,7 @@ const POMODORO_DURATION = 0.3 * 60;
 const SHORT_BREAK_DURATION = 0.1 * 60;
 const LONG_BREAK_DURATION = 2 * 60;
 const POMODORO_COUNT_TO_LONG_BREAK = 4;
+const TIME_TO_PLUS = 0.5 * 60;
 
 interface TimerHooksProps {
   taskArr: taskProp[];
@@ -25,7 +27,7 @@ interface TimerHooksProps {
   setSeconds: React.Dispatch<React.SetStateAction<number>>;
   pomodoroCount: number;
   setPomodoroCount: React.Dispatch<React.SetStateAction<number>>;
-  toggleInProcess: ()=> void;
+  toggleInProcess: () => void;
 }
 
 export function useTimerHooks({
@@ -73,13 +75,19 @@ export function useTimerHooks({
             taskArr,
             setTaskArr,
             handleDelete,
-            toggleInProcess,
+            toggleInProcess
           )
         );
       }, 1000);
     }
     return () => clearInterval(timerID);
   }, [isRunning, isPomodoroDone, taskArr]);
+
+  function handleTimerPlus() {
+
+    const newTime = handleTimePlus(seconds, TIME_TO_PLUS);
+    setSeconds(newTime);
+  }
 
   useEffect(() => {
     if (isPomodoroDone) {
@@ -97,5 +105,5 @@ export function useTimerHooks({
     }
   }, [isPomodoroDone]);
 
-  return { handleStartStop, handleReset };
+  return { handleStartStop, handleReset, handleTimerPlus };
 }

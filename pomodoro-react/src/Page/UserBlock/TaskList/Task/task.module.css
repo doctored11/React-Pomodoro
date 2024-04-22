@@ -1,14 +1,23 @@
-.item{
-    display: flex;
-    text-decoration: none;
-    position: relative;
-    
+.item {
+  display: flex;
+  text-decoration: none;
+  position: relative;
+
+  height: 55px;
+  width: 65%;
+  align-items: center;
+
+  border-top: 1px solid var(--light-gray);
 }
-.pomodoroCount{
-    border: 1px solid var(--border-circle);
-    border-radius: 50%;
-    padding: 2px 8px;
-    width: 25px;
-    height: 25px;
-    margin-right: 10px;
+.pomodoroCount {
+  border: 1px solid var(--border-circle);
+  border-radius: 50%;
+  padding: 2px 8px;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
 }
+.item:last-child {
+    border-bottom: 1px solid var(--light-gray);
+  }
+  

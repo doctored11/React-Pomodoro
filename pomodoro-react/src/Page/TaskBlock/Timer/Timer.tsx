@@ -37,7 +37,7 @@ export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
   const [seconds, setSeconds] = useState(POMODORO_DURATION);
   const [pomodoroCount, setPomodoroCount] = useState(0);
 
-  const { handleStartStop, handleReset } = useTimerHooks({
+  const { handleStartStop, handleReset, handleTimerPlus } = useTimerHooks({
     taskArr,
     setTaskArr,
     isRunning,
@@ -96,24 +96,28 @@ export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
   }
 
   return (
-    <div>
+    <div className={styles.timerForm}>
       <div className={styles.timer}>
         {Math.floor(seconds / 60)}:
         {seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60}
       </div>
-      <button
-        className={`${styles.btn} ${styles.btnTarget}`}
-        onClick={handleStartStop}
-      >
-        {isRunning
-          ? "Пауза"
-          : seconds == POMODORO_DURATION
-          ? "Старт"
-          : "Продолжить"}
-      </button>
-      <button className={styles.btn} onClick={() => btnCallback()}>
-        {btnName}
-      </button>
+
+      <button className={styles.plusBtn} onClick={handleTimerPlus} />
+      <div className={styles.btnsBlock}>
+        <button
+          className={`${styles.btn} ${styles.btnTarget}`}
+          onClick={handleStartStop}
+        >
+          {isRunning
+            ? "Пауза"
+            : seconds == POMODORO_DURATION
+            ? "Старт"
+            : "Продолжить"}
+        </button>
+        <button className={styles.btn} onClick={() => btnCallback()}>
+          {btnName}
+        </button>
+      </div>
     </div>
   );
 }

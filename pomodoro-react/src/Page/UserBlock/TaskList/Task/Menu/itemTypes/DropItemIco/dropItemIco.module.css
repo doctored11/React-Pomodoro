@@ -4,6 +4,8 @@
   padding: 11px 17px;
   align-items: center;
   width: 100%;
+  /* z-index: 5; */
+  
 }
 .dropSvgBlock{
     margin-right: 5px;
@@ -19,7 +21,7 @@
 }
 
 .dropItem:hover{
-  z-index: 11;
+  z-index: 20;
   cursor: pointer;
   background-color: var(--gray-color);
 }

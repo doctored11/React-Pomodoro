@@ -1,22 +1,64 @@
-.timer{
-   
-font-size: 150px;
-font-weight: 200;
-line-height: 179px;
-text-align: left;
+.timer {
+  font-size: 150px;
+  font-weight: 200;
+  line-height: 179px;
+  text-align: center;
 
-color: var(--color-text);
-
+  color: var(--color-text);
+}
+.timerForm {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 70px 0 100px;
+  align-items: center;
+  background-color: var(--gray-color);
 }
 
-.btn{
-    border: 2px solid var(--gray-c4);
-    display: inline-block;
-    padding: 15px  50px;
-    color: var(--gray-c4);
+.btn {
+  border: 2px solid var(--gray-c4);
+  display: inline-block;
+  padding: 20px 50px;
+  color: var(--gray-c4);
 }
-.btnTarget{
-    border-color: var(--green-color);
-    background-color: var(--green-color);
-    color:var(--color-white)
+.btnTarget {
+  border-color: var(--green-color);
+  background-color: var(--green-color);
+  color: var(--color-white);
+  margin-right: 25px;
 }
+.btnsBlock{
+  display: flex;
+}
+
+.plusBtn {
+  border-color: var(--green-color);
+  background-color: var(--green-color);
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  right: 20%;
+  top: 33%;
+}
+.plusBtn::after {
+  content: "";
+  width: 16px;
+  height: 2px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: var(--color-white);
+}
+.plusBtn::before {
+    content: "";
+    width: 16px;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    background-color: var(--color-white);
+  }
+  

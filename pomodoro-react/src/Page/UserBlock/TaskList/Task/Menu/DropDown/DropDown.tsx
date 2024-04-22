@@ -13,9 +13,12 @@ interface IDropDownProps {
 }
 
 const NOOP = () => {};
-export function DropDown({ button, children,isDropdownOpen,setIsDropdownOpen }: IDropDownProps) {
-  
-
+export function DropDown({
+  button,
+  children,
+  isDropdownOpen,
+  setIsDropdownOpen,
+}: IDropDownProps) {
   // React.useEffect(() => {
   //   setIsDropdownOpen(isOpen);
   // }, [isOpen]);
@@ -28,8 +31,8 @@ export function DropDown({ button, children,isDropdownOpen,setIsDropdownOpen }: 
     <div className={style.container}>
       <div className={style.listContainer} onClick={handleOpen}>
         {button}
-        {isDropdownOpen && <div className={style.list}>{children}</div>}
       </div>
+      {isDropdownOpen && <div className={style.list}>{children}</div>}
     </div>
   );
 

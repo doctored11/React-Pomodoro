@@ -1,22 +1,21 @@
 .container {
   position: absolute;
-  right:  0;
- 
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 
-  /* z-index: 3; */
+  z-index: 10;
 }
 .list {
   position: absolute;
-  z-index: 5;
+
   border: solid 1px var(--border);
   background-color: var(--color-white);
-
+  z-index: 15;
   left: 50%;
   transform: translateX(-50%) translateY(8px);
 }
-.list > * {
-  z-index: 6;
-}
+
 .dropItem:hover {
   cursor: pointer;
   background-color: var(--gray-color);
@@ -37,11 +36,15 @@
   right: auto;
   left: 50%;
   transform: translate(-50%, 50%) rotate(45deg);
-  
+
   bottom: 100%;
   z-index: 10;
 }
 
-.dropSvgBlock * path{
+.dropSvgBlock * path {
   fill: var(--green-color);
+}
+.listContainer {
+  position: relative;
+  z-index: 3;
 }
