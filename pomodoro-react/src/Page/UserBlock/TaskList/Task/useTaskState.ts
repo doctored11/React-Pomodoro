@@ -37,6 +37,7 @@ export function useTaskState({ taskArr, setTaskArr }: UseTaskStateProps) {
     setTaskArr(updatedTasks);
   };
 
+
   const handleSetInDoing = (taskId: number, inDoing: boolean) => {
     const updatedTasks = taskArr.map((task) => {
       if (task.id === taskId) {

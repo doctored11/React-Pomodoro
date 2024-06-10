@@ -22,42 +22,72 @@ export interface ViewTaskProps {
 
 export function Task({ task, setTaskArr, taskArr }: ViewTaskProps) {
   const [isEditing, setIsEditing] = useState(false);
-
+  const [isDeleting, setIsDeleting] = useState(false);
   const { handleChangeCount, handleUpdate, handleDelete, getTaskById } =
     useTaskState({ taskArr, setTaskArr });
 
   const { editedTitle, handleChange } = useInputHandler(task.title);
 
   return (
-    <li className={style.item}>
-      <div className={style.pomodoroCount}> {task.count - task.stage}</div>
-
-      {isEditing ? (
-        <input
-          type="text"
-          value={editedTitle}
-          onChange={handleChange}
-          onBlur={() => {
-            handleUpdate({ ...task, title: editedTitle });
-            setIsEditing(false);
-          }}
-          autoFocus
-        />
-      ) : (
-        <div className={style.title} onDoubleClick={() => setIsEditing(true)}>
-          {task.title}
+    <>
+      {isDeleting && (
+        <div className={style.modal}>
+          <div className={style.modalContent}>
+            <h2>Удалить задачу?</h2>
+            <button className={style.redBtn}
+              onClick={() => {
+                handleDelete(task.id);
+                setIsDeleting(false);
+              }}
+            >
+              Удалить
+            </button>
+            <button className={style.btn}
+              onClick={() => {
+                setIsDeleting(false);
+              }}
+            >
+              Отмена
+            </button>
+          </div>
         </div>
       )}
+      <li className={style.item}>
+        <div className={style.pomodoroCount}> {task.count - task.stage}</div>
 
-      <Menu
-        onDelete={() => {
-          handleDelete(task.id);
+        {isEditing ? (
+          <input
+            type="text"
+            value={editedTitle}
+            onChange={handleChange}
+            onBlur={() => {
+              handleUpdate({ ...task, title: editedTitle });
+              setIsEditing(false);
+            }}
+            autoFocus
+          />
+        ) : (
+          <div className={style.title} onDoubleClick={() => setIsEditing(true)}>
+            {task.title}
+          </div>
+        )}
+
+        <Menu
+          onDelete={() => {
+            setIsDeleting(true);
+          }}
+          onDecrementCount={() =>{ 
+          if (task.count > 1) {
+            handleChangeCount(task.id, -1);
+          } else {
+            setIsDeleting(true);
+          }
         }}
-        onDecrementCount={() => handleChangeCount(task.id, -1)}
-        onIncrementCount={() => handleChangeCount(task.id, 1)}
-        rename={setIsEditing}
-        getTask={() => getTaskById(task.id)}
-      />
-    </li>
+          onIncrementCount={() => handleChangeCount(task.id, 1)}
+          rename={setIsEditing}
+          getTask={() => getTaskById(task.id)}
+        />
+      </li>
+    </>
   );
 }

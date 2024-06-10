@@ -30,10 +30,11 @@ export function DropDown({
   const dropDown = (
     <div className={style.container}>
       <div className={style.listContainer} onClick={handleOpen}>
-        {button}
+        {button }
+        {isDropdownOpen && <div className={style.list}>{children}</div>}
       </div>
-      {isDropdownOpen && <div className={style.list}>{children}</div>}
-    </div>
+      
+     </div>
   );
 
   return dropDown;
