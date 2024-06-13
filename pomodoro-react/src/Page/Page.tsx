@@ -4,6 +4,7 @@ import { UserBlock } from "./UserBlock/UserBlock";
 import styles from "./page.module.css";
 import { TaskBlock } from "./TaskBlock/TaskBlock";
 import { taskProp } from "./UserBlock/TaskMaker/TaskMaker";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
 export interface TasksContextType {
@@ -20,10 +21,11 @@ export function Page() {
   const [taskArr, setTaskArr] = useState<taskProp[]>([]);
 
   return (
+
     <>
       <TasksContext.Provider value={{ taskArr, setTaskArr }}>
-        <Header></Header>
-        <div className={styles.frame}>
+        {/* <Header></Header> */}
+        <div className={"frame"}>
           <div className={styles.userBlockFrame}>
             <UserBlock></UserBlock>
           </div>
@@ -33,5 +35,7 @@ export function Page() {
         </div>{" "}
       </TasksContext.Provider>
     </>
+   
+ 
   );
 }

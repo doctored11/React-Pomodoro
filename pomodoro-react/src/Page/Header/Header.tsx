@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./header.module.css";
 import SVGIcon from "../../utils/SVGIcon";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const header = (
@@ -12,9 +13,15 @@ export function Header() {
             alt=""
             className={`${styles.logoPic} logoPic`}
           />
-          <h2 className={`${styles.naming}  ${styles.accentTxt} naming txt`}>
+          
+          <Link
+            className={`${styles.naming}  ${styles.accentTxt} naming txt`}
+            to="/"
+          >
             Pomodoro
-          </h2>
+          </Link>
+
+
         </a>
 
         <div className={styles.statisticBlock}>
@@ -77,7 +84,12 @@ export function Header() {
             </defs>
           </svg>
 
-          <p className={`${styles.txt} ${styles.accentTxt} ${styles.statisticTxt}`}>Статисика</p>
+          <Link
+            className={`${styles.txt} ${styles.accentTxt} ${styles.statisticTxt}`}
+            to="/stats"
+          >
+            Статистика
+          </Link>
         </div>
       </div>
     </header>

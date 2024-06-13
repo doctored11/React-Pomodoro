@@ -38,7 +38,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.css$/,
+                test: /\.module\.css$/,
                 use: ['style-loader', {
                     loader: 'css-loader',
                     options: {
@@ -48,6 +48,11 @@ module.exports = {
                         },
                     },
                 }],
+            },
+            {
+                test: /\.css$/,
+                exclude: /\.module\.css$/,
+                use: ['style-loader', 'css-loader'],
             },
             
         ]
@@ -67,7 +72,8 @@ module.exports = {
         compress: true,
         port: 3003,
         open: true,
-        hot: IS_DEV
+        hot: IS_DEV,
+        historyApiFallback: true
     }
 
 };

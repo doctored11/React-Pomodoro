@@ -1,0 +1,114 @@
+/* statistic.module.css */
+.statisticsFrame {
+  width: 100%;
+  padding: 20px 0 ;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  flex-direction: column;
+}
+
+.statisticsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.weekSelector select {
+  padding: 5px;
+  font-size: 14px;
+}
+
+.statisticsContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr;
+  grid-template-rows: auto;
+  gap: 20px;
+}
+
+.daySummary, .tomatoes, .focusSummary, .pauseSummary, .stopsSummary {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.daySummaryTitle {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.daySummaryText {
+  margin: 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.highlightText {
+  font-weight: bold;
+  color: #dc3e22;
+}
+
+.tomatoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tomatoImage {
+  width: 50px;
+  height: 50px;
+}
+
+.tomatoCount {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #dc3e22;
+}
+
+.chartContainer {
+  grid-column: 1 / span 3;
+  height: 300px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+}
+
+.focusSummary, .pauseSummary, .stopsSummary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summaryTitle {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.summaryValue {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.focusSummary {
+  background-color: #ffefc4;
+}
+
+.pauseSummary {
+  background-color: #d4e1ff;
+}
+
+.stopsSummary {
+  background-color: #ffe4e1;
+}
