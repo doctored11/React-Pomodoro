@@ -1,5 +1,5 @@
 {
-  "name": "card-React",
+  "name": "pomodor-React",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doctored11/card-React.git"
+    "url": "git+https://github.com/doctored11/pomodor-React.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/doctored11/card-React/issues"
+    "url": "https://github.com/doctored11/pomodor-React/issues"
   },
-  "homepage": "https://github.com/doctored11/card-React#readme",
+  "homepage": "https://github.com/doctored11/pomodor-React#readme",
   "devDependencies": {
     "@types/css-modules": "^1.0.5",
     "@types/react": "^18.2.47",
