@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import {
   handleTimePlus,
@@ -9,6 +9,7 @@ import {
   stageUp,
 } from "./timerScript";
 import { useTaskState } from "../../UserBlock/TaskList/Task/useTaskState";
+import { StatisticTool } from "../../../utils/localStorageUtils";
 
 const POMODORO_DURATION = 0.3 * 60;
 const SHORT_BREAK_DURATION = 0.1 * 60;
@@ -47,19 +48,35 @@ export function useTimerHooks({
     taskArr,
     setTaskArr,
   });
+  
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+
+  const updateElapsedTime = (newTime: number) => {
+    setElapsedTime(newTime);
+  };
 
   function handleStartStop() {
     if (!taskArr.length) {
       setIsRunning(false);
+      setElapsedTime(0);
       return;
     }
     setIsRunning(!isRunning);
-  }
-
+    if (isRunning) {
+      const timeString = String(elapsedTime);
+      console.log(elapsedTime)
+      StatisticTool.addPauseTime(timeString);
+    } else {
+      setElapsedTime(0); 
+    }
+  } 
+//  updateElapsedTime - надо адекватно обновлять в простое - сейчас это складывает стариые тайминги в обратном порядке
   const handleReset = useCallback(() => {
+    StatisticTool.addPauseCount()
     setIsRunning(false);
     setPomodoroDone(false);
     setSeconds(POMODORO_DURATION);
+    setElapsedTime(0);
   }, [setIsRunning, setPomodoroDone, setSeconds]);
 
   useEffect(() => {
@@ -78,6 +95,7 @@ export function useTimerHooks({
             toggleInProcess
           )
         );
+        updateElapsedTime(seconds)
       }, 1000);
     }
     return () => clearInterval(timerID);
@@ -105,5 +123,18 @@ export function useTimerHooks({
     }
   }, [isPomodoroDone]);
 
-  return { handleStartStop, handleReset, handleTimerPlus };
+
+  const toggleStartStop = useCallback(() => {
+    if (isRunning) {
+      // Вычисляем часы, минуты и секунды
+      const hours = Math.floor(elapsedTime / 3600);
+      const minutes = Math.floor((elapsedTime % 3600) / 60);
+      const seconds = elapsedTime % 60;
+      return `${hours}:${minutes}:${seconds}`;
+    } else {
+      return "0:0:0";
+    }
+  }, [isRunning, elapsedTime]);  
+
+  return { handleStartStop, handleReset, handleTimerPlus, toggleStartStop };
 }

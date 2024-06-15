@@ -1,6 +1,8 @@
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 import { useTaskState } from "../../UserBlock/TaskList/Task/useTaskState";
+import { Statistic } from "Page/Statistic/Statistic";
+import { StatisticTool } from "../../../utils/localStorageUtils";
 
 export function handleTimer(
   seconds: number,
@@ -89,6 +91,7 @@ export function pomodorFinished(
   const updatedTaskArr = [...taskArr];
 
   stageUp(task);
+  StatisticTool.setPomodoreDone();
   setPomodoroDone(true);
   updatedTaskArr.splice(0, 1, task);
 

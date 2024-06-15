@@ -1,4 +1,3 @@
-/* statistic.module.css */
 .statisticsFrame {
   width: 100%;
   padding: 20px 0 ;
@@ -28,11 +27,10 @@
 
 .statisticsContent {
   display: grid;
-  grid-template-columns: 1fr 1fr 3fr;
-  grid-template-rows: auto;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: repeat(3,1fr);
   gap: 20px;
 }
-
 .daySummary, .tomatoes, .focusSummary, .pauseSummary, .stopsSummary {
   background-color: #f9f9f9;
   padding: 20px;
@@ -76,7 +74,8 @@
 }
 
 .chartContainer {
-  grid-column: 1 / span 3;
+  grid-column: 2 / 4;
+  grid-row: 1 / 3;
   height: 300px;
   background-color: #f4f4f4;
   border-radius: 10px;

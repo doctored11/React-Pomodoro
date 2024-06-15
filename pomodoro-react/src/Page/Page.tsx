@@ -7,6 +7,7 @@ import { taskProp } from "./UserBlock/TaskMaker/TaskMaker";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
+
 export interface TasksContextType {
   taskArr: taskProp[];
   setTaskArr: React.Dispatch<React.SetStateAction<taskProp[]>>;
@@ -18,6 +19,8 @@ export const TasksContext = React.createContext<TasksContextType>({
 });
 
 export function Page() {
+  console.log(1);
+
   const [taskArr, setTaskArr] = useState<taskProp[]>([]);
 
   return (

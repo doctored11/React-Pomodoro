@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './statistic.module.css';
-import "../../index.css"
-import "../../media.css"
+import React from "react";
+import styles from "./statistic.module.css";
+import "../../index.css";
+import "../../media.css";
 
 export function Statistic() {
   return (
@@ -16,21 +16,28 @@ export function Statistic() {
         </div>
       </div>
       <div className={styles.statisticsContent}>
-        <div className={styles.daySummary}>
-          <h3 className={styles.daySummaryTitle}>Понедельник</h3>
-          {/* todo */}
-          <p className={styles.daySummaryText}>Вы работали над задачами в течение <span className={styles.highlightText}>51 минуты</span></p>
-        </div>
-        <div className={styles.tomatoes}>
+        
+          <div className={styles.daySummary}>
+            <h3 className={styles.daySummaryTitle}>Понедельник</h3>
+            <p className={styles.daySummaryText}>
+              Вы работали над задачами в течение{" "}
+              <span className={styles.highlightText}>51 минуты</span>
+            </p>
+          </div>
 
-                  {/* todo */}
-          <img src="../../source/tomatoYang.png" alt="Tomato" className={styles.tomatoImage} />
-          <div className={styles.tomatoCount}>2 помидора</div>
-        </div>
+          <div className={styles.tomatoes}>
+            <img
+              src="../../source/tomatoYang.png"
+              alt="Tomato"
+              className={styles.tomatoImage}
+            />
+            <p className={styles.tomatoCount}>2 помидора</p>
+          </div>
+        
         <div className={styles.chartContainer}>
           {/* Здесь будет диаграмма */}
         </div>
-                {/* todo */}
+        {/* todo */}
         <div className={styles.focusSummary}>
           <h4 className={styles.summaryTitle}>Фокус</h4>
           <p className={styles.summaryValue}>35%</p>

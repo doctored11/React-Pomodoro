@@ -11,6 +11,8 @@ import {
 } from "./timerScript";
 import { useTaskState } from "../../UserBlock/TaskList/Task/useTaskState";
 import { useTimerHooks } from "./timerHooks";
+import { Statistic } from "Page/Statistic/Statistic";
+import { StatisticTool } from "../../../utils/localStorageUtils";
 
 const POMODORO_DURATION = 0.3 * 60;
 const SHORT_BREAK_DURATION = 0.1 * 60;
@@ -63,6 +65,7 @@ export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
         //таймер тикает
         // то СТОП (таймер остановить и вернуть на начальное значение --для выполнения задания сначала)
         setBtnName("Стоп");
+       
         setBtnCallback(() => handleReset);
       } else {
         //то Сделано (помидор сделан)
