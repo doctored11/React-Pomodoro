@@ -30,7 +30,7 @@ interface TimerHooksProps {
   setPomodoroCount: React.Dispatch<React.SetStateAction<number>>;
   toggleInProcess: () => void;
 }
-
+// todo считать время на паузе - наверное то когда таймер идет (отдых) а кол во остановок это все что не идет в зачет времени
 export function useTimerHooks({
   taskArr,
   setTaskArr,
@@ -48,12 +48,10 @@ export function useTimerHooks({
     taskArr,
     setTaskArr,
   });
-  
-  const [elapsedTime, setElapsedTime] = useState<number>(0);
 
-  const updateElapsedTime = (newTime: number) => {
-    setElapsedTime(newTime);
-  };
+  const [elapsedTime, setElapsedTime] = useState(0);
+
+  const [inDoing, setInDoing] = useState(false);
 
   function handleStartStop() {
     if (!taskArr.length) {
@@ -64,15 +62,16 @@ export function useTimerHooks({
     setIsRunning(!isRunning);
     if (isRunning) {
       const timeString = String(elapsedTime);
-      console.log(elapsedTime)
+      console.log(101);
+      console.log(elapsedTime);
       StatisticTool.addPauseTime(timeString);
+      // console.log(elapsedTime)
     } else {
-      setElapsedTime(0); 
+      setElapsedTime(0);
     }
-  } 
-//  updateElapsedTime - надо адекватно обновлять в простое - сейчас это складывает стариые тайминги в обратном порядке
+  }
   const handleReset = useCallback(() => {
-    StatisticTool.addPauseCount()
+    StatisticTool.addPauseCount();
     setIsRunning(false);
     setPomodoroDone(false);
     setSeconds(POMODORO_DURATION);
@@ -95,14 +94,14 @@ export function useTimerHooks({
             toggleInProcess
           )
         );
-        updateElapsedTime(seconds)
+        if (inDoing)
+          setElapsedTime((prevElapsedTime: number) => prevElapsedTime + 1);
       }, 1000);
     }
     return () => clearInterval(timerID);
   }, [isRunning, isPomodoroDone, taskArr]);
 
   function handleTimerPlus() {
-
     const newTime = handleTimePlus(seconds, TIME_TO_PLUS);
     setSeconds(newTime);
   }
@@ -110,19 +109,20 @@ export function useTimerHooks({
   useEffect(() => {
     if (isPomodoroDone) {
       setPomodoroCount(pomodoroCount + 1);
+      setInDoing(false);
       setSeconds(
         pomodoroCount === POMODORO_COUNT_TO_LONG_BREAK
           ? LONG_BREAK_DURATION
           : SHORT_BREAK_DURATION
       );
     } else {
+      setInDoing(true);
       setSeconds(POMODORO_DURATION);
       const task = getActiveTask(taskArr);
 
       setPomodoroInDoing(task, handleSetInDoing);
     }
   }, [isPomodoroDone]);
-
 
   const toggleStartStop = useCallback(() => {
     if (isRunning) {
@@ -134,7 +134,7 @@ export function useTimerHooks({
     } else {
       return "0:0:0";
     }
-  }, [isRunning, elapsedTime]);  
+  }, [isRunning, elapsedTime]);
 
   return { handleStartStop, handleReset, handleTimerPlus, toggleStartStop };
 }
