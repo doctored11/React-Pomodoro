@@ -49,6 +49,7 @@ export class StatisticTool {
     StatisticTool.statisticIncrease(0, "0:0:0", 1);
   }
   static addPauseTime(time: string) {
+    console.log("добавляем : ", time)
     time = StatisticTool.formatTimeFromSeconds(time)
     StatisticTool.statisticIncrease(0, time, 0);
   }

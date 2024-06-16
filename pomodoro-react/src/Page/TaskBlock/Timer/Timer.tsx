@@ -69,6 +69,7 @@ export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
         setBtnCallback(() => handleReset);
       } else {
         //то Сделано (помидор сделан)
+        StatisticTool.addPauseCount();
         console.log("Кнопка в статусе:  Сделанно");
         setBtnName("Сделано");
         setBtnCallback(() => hardPomodorDone);

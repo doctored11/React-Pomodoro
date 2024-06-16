@@ -60,13 +60,13 @@ export function useTimerHooks({
       return;
     }
     setIsRunning(!isRunning);
-    if (isRunning) {
+   
+
+    if (!isRunning) {
       const timeString = String(elapsedTime);
-      console.log(101);
-      console.log(elapsedTime);
+      console.log("__");
+      console.log(timeString);
       StatisticTool.addPauseTime(timeString);
-      // console.log(elapsedTime)
-    } else {
       setElapsedTime(0);
     }
   }
@@ -75,11 +75,11 @@ export function useTimerHooks({
     setIsRunning(false);
     setPomodoroDone(false);
     setSeconds(POMODORO_DURATION);
-    setElapsedTime(0);
   }, [setIsRunning, setPomodoroDone, setSeconds]);
 
   useEffect(() => {
     let timerID: NodeJS.Timeout;
+
     if (isRunning) {
       timerID = setInterval(() => {
         setSeconds((prevSeconds) =>
@@ -94,8 +94,9 @@ export function useTimerHooks({
             toggleInProcess
           )
         );
-        if (inDoing)
+        if (!inDoing) {
           setElapsedTime((prevElapsedTime: number) => prevElapsedTime + 1);
+        }
       }, 1000);
     }
     return () => clearInterval(timerID);
@@ -126,7 +127,6 @@ export function useTimerHooks({
 
   const toggleStartStop = useCallback(() => {
     if (isRunning) {
-      // Вычисляем часы, минуты и секунды
       const hours = Math.floor(elapsedTime / 3600);
       const minutes = Math.floor((elapsedTime % 3600) / 60);
       const seconds = elapsedTime % 60;
