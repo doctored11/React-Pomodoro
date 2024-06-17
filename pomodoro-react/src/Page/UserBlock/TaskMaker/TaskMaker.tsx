@@ -11,7 +11,7 @@ export interface taskProp {
   edit: boolean;
   task_finished: boolean;
 }
-// вынести хук добавления задачи
+
 export function TaskMaker() {
   const { taskArr, setTaskArr } = useContext(TasksContext);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -21,6 +21,11 @@ export function TaskMaker() {
   useEffect(() => {
     setValidStatus(stroke.length > 2);
   }, [stroke]);
+
+  useEffect(() => {
+    if(taskArr.length>0)
+     localStorage.setItem("Tasks", JSON.stringify(taskArr));
+  }, [taskArr]);
 
   const strokeHandler = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setStroke(ev.target.value);
@@ -40,7 +45,6 @@ export function TaskMaker() {
       task_finished: false,
     };
     setTaskArr([...taskArr, newTask]);
-    console.log([...taskArr, newTask]);
     setStroke("");
   };
 

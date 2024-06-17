@@ -10,9 +10,16 @@ export function TaskList() {
   const { taskArr, setTaskArr } = useContext(TasksContext);
 
   useEffect(() => {
-    console.log("спсок задач обновлен - ", taskArr);
-  }, [taskArr]);
+    const item = localStorage.getItem("Tasks");
+    const savedTasks = item ? JSON.parse(item) : [];
+    setTaskArr(savedTasks);
+  }, [setTaskArr]);
 
+  useEffect(() => {
+    if (taskArr.length > 0) {
+      localStorage.setItem("Tasks", JSON.stringify(taskArr));
+    }
+  }, [taskArr]);
   return (
     <>
       <div className={style.list}>

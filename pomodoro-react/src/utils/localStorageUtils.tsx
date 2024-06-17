@@ -1,4 +1,4 @@
-interface dayStatisticType {
+export interface dayStatisticType {
   pomodors: number;
   pauseTime: string;
   pauseCount: number;
@@ -24,6 +24,7 @@ export class StatisticTool {
     if (item) {
       return JSON.parse(item) as dayStatisticType;
     }
+
     StatisticTool.initializationNewDay();
     return StatisticTool.emptyObj;
   }
