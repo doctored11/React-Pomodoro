@@ -83,7 +83,6 @@ export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
     }
   }, [taskArr, isRunning, isPomodoroDone]);
 
-  // TODO - сделать чтобы визуально помиоры менялись в списке
   function hardPomodorDone() {
     pomodorFinished(
       taskArr,
@@ -95,8 +94,13 @@ export function Timer({ taskArr, setTaskArr, toggleInProcess }: TimerProps) {
     );
   }
   function skipPause() {
+    console.log("Skip")
+    
+    setSeconds(0)
     setPomodoroDone(false);
     toggleInProcess();
+    setIsRunning(false);
+    
   }
 
   return (
