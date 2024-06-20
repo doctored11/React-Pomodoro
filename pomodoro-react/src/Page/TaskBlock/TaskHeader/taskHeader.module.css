@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  width: 100%;
+  padding: 20px 40px;
+  background-color: var(--gray-c4);
+  justify-content: space-between;
+  min-height: 55px;
+}
+.txt {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 17px;
+  text-align: left;
+
+  color: var(--color-white);
+}

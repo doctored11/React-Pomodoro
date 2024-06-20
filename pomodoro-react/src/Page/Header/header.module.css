@@ -1,0 +1,71 @@
+.svgBlock {
+  display: block;
+  width: 20px;
+  height: 20px;
+  /* border: 5px solid red; */
+  padding: 0;
+  margin: 0;
+}
+.svgBlock > use {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+.statisticBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headerFrame {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 90%;
+}
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+
+  box-shadow: 0 5px 25px var(--border-circle);
+}
+
+p {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.logoBlock {
+  display: flex;
+  align-items: center;
+}
+.naming {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 24px;
+  text-align: center;
+}
+.accentTxt {
+  color: var(--red-color);
+}
+.logoPic {
+  max-width: 40px;
+  max-height: 40px;
+  margin-right: 1em;
+}
+
+.SVGIcon path {
+  fill: var(--red-color);
+  stroke: var(--red-color);
+}
+.statisticTxt {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 17px;
+  text-align: left;
+}
