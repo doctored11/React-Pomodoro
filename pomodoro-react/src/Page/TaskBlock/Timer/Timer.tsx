@@ -14,10 +14,10 @@ import { useTimerHooks } from "./timerHooks";
 import { Statistic } from "Page/Statistic/Statistic";
 import { StatisticTool } from "../../../utils/localStorageUtils";
 
-const POMODORO_DURATION = 0.3 * 60;
-const SHORT_BREAK_DURATION = 0.1 * 60;
-const LONG_BREAK_DURATION = 2 * 60;
-const POMODORO_COUNT_TO_LONG_BREAK = 4;
+export const POMODORO_DURATION = 0.3 * 60;
+ export const SHORT_BREAK_DURATION = 0.1 * 60;
+export const LONG_BREAK_DURATION = 2 * 60;
+export const POMODORO_COUNT_TO_LONG_BREAK = 4;
 
 interface TimerProps {
   taskArr: taskProp[];

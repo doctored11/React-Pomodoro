@@ -9,6 +9,7 @@ import "choices.js/public/assets/styles/choices.min.css";
 import "../../index.css";
 import "../../media.css";
 import "./selectStyles.css";
+import { POMODORO_DURATION } from "../TaskBlock/Timer/Timer";
 
 export function Statistic() {
   const [selectedPeriod, setSelectedPeriod] = useState<string>("7");
@@ -29,7 +30,7 @@ export function Statistic() {
       const pomodors = savedStats.pomodors || 0;
       const idleTime = savedStats.pauseTime || 0;
       const pauses = savedStats.pauseCount || 0;
-      const workTime = pomodors * 60; // вставить константу как у помидора 
+      const workTime = pomodors * POMODORO_DURATION
       const totalTime = workTime + idleTime;
       const focus = totalTime > 0 ? (workTime / totalTime) * 100 : 0;
 
@@ -42,6 +43,8 @@ export function Statistic() {
       });
     };
 
+  
+  
     fetchDailyStats();
 
     if (selectRef.current) {
@@ -58,7 +61,11 @@ export function Statistic() {
       };
     }
   }, []);
-
+  const formatTime = (sec: number) => {
+    const hours = Math.floor(sec / 3600);
+    const mins = Math.floor((sec % 3600) / 60);
+    return `${hours > 0 ? `${hours} ч ` : ''}${mins} мин`;
+  };
   const handlePeriodChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedPeriod(event.target.value);
   };
@@ -68,6 +75,8 @@ export function Statistic() {
     if (count > 1 && count < 5) return "помидора";
     return "помидоров";
   };
+
+ 
 
   return (
     <div className={`frame ${styles.statisticsFrame}`}>
@@ -89,14 +98,15 @@ export function Statistic() {
         </div>
       </div>
       <div className={styles.statisticsContent}>
-        <div className={styles.daySummary}>
+        <div className={`${styles.daySummary} ${styles.sideBlock}`}>
           <h3 className={styles.daySummaryTitle}>Рабочий день</h3>
           <p className={styles.daySummaryText}>
-            Вы работали над задачами в течение <span className={styles.highlightText}>{dailyStats.workTime} минут</span>
+                       Вы работали над задачами в течение <span className={styles.highlightText}>{formatTime(dailyStats.workTime)}</span>
+
           </p>
         </div>
 
-        <div className={styles.tomatoes}>
+        <div className={`${styles.tomatoes}  ${styles.sideBlock}`}>
           <img src="../../source/tomatoYang.png" alt="Tomato" className={styles.tomatoImage} />
           <p className={styles.tomatoCount}>
             {dailyStats.pomodors} {getTomatoLabel(dailyStats.pomodors)}
