@@ -13,3 +13,36 @@
 .taskBlockFrame {
   flex: 4;
 }
+
+@media (max-width: 1280px) {
+  .taskBlockFrame {
+    margin-bottom: 5rem;
+  }
+  .userBlockFrame{
+    margin: 0;
+  }
+  .userBlockFrame > * {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+
+
+}
+@media (max-width: 800px) {
+ 
+  .userBlockFrame > * {
+    flex-direction: column;
+  }
+
+
+}
+@media (max-width: 800px) {
+ 
+  .taskBlockFrame {
+    margin-bottom: 1.5rem;
+  }
+
+
+}

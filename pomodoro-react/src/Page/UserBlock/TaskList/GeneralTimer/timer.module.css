@@ -1,0 +1,7 @@
+@media (max-width: 1280px) {
+    .timer{
+        position: absolute;
+        bottom: -1.5rem;
+        right: 0;
+    }
+  }

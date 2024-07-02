@@ -23,8 +23,8 @@ export function TaskMaker() {
   }, [stroke]);
 
   useEffect(() => {
-    if(taskArr.length>0)
-     localStorage.setItem("Tasks", JSON.stringify(taskArr));
+    if (taskArr.length > 0)
+      localStorage.setItem("Tasks", JSON.stringify(taskArr));
   }, [taskArr]);
 
   const strokeHandler = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +49,9 @@ export function TaskMaker() {
   };
 
   return (
-    <form className={styles.from} onSubmit={addTask}>
+    <form className={` ${styles.from}`} onSubmit={addTask}>
       <input
-        className={styles.input}
+        className={`customTxt ${styles.input}`}
         onChange={strokeHandler}
         type="text"
         ref={inputRef}

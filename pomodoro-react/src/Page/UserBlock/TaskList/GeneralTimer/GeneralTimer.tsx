@@ -1,5 +1,6 @@
 import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import React from "react";
+import styles from "./timer.module.css"
 
 const POMODORO_DURATION = 0.3 * 60;
 const SHORT_BREAK_DURATION = 0.1 * 60;
@@ -37,5 +38,5 @@ export function GeneralTimer({ taskArr }: generalTimerProps) {
     totalTimeRemaining += taskTimeRemaining;
   });
 
-  return <div className="">{formatTime(totalTimeRemaining)} </div>;
+  return <div className={styles.timer}>{formatTime(totalTimeRemaining)} </div>;
 }

@@ -22,7 +22,7 @@ export function TaskList() {
   }, [taskArr]);
   return (
     <>
-      <div className={style.list}>
+      <ul className={style.list}>
         {taskArr.map((task) => (
           <Task
             key={task.id}
@@ -31,7 +31,7 @@ export function TaskList() {
             taskArr={taskArr}
           />
         ))}
-      </div>{" "}
+      </ul>{" "}
       <GeneralTimer taskArr={taskArr}></GeneralTimer>
     </>
   );
