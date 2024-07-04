@@ -91,4 +91,14 @@
     
    display: none;
   }
+  .btnsBlock {
+    flex-direction: column;
+  }
+  .btnTarget{
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+  .btn{
+    padding: 15px 30px;
+  }
 }

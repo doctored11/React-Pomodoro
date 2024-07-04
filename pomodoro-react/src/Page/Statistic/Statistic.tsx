@@ -91,8 +91,8 @@ export function Statistic() {
             name="select"
             id="select"
           >
-            <option value="7">Эта неделя</option>
-            <option value="14">Две недели</option>
+            <option value="7">7 дней</option>
+            <option value="14">14 дней</option>
             <option value="all-time">Все время</option>
           </select>
         </div>
