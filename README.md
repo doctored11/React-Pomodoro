@@ -6,10 +6,10 @@
 ___
 
 
-![Pictyrka](ToReadMe/1.png)
+![Pictyrka](toReadMe/1.png)
 
-![Pictyrka](ToReadMe/2.png)
+![Pictyrka](toReadMe/2.png)
 
-![Pictyrka](ToReadMe/3.png)
+![Pictyrka](toReadMe/3.png)
 
 
