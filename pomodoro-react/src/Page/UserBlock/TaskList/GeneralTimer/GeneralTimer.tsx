@@ -2,9 +2,10 @@ import { taskProp } from "Page/UserBlock/TaskMaker/TaskMaker";
 import React from "react";
 import styles from "./timer.module.css"
 
-const POMODORO_DURATION = 0.3 * 60;
-const SHORT_BREAK_DURATION = 0.1 * 60;
-const LONG_BREAK_DURATION = 2 * 60;
+// вынести в экспорт
+const POMODORO_DURATION = 5 * 60;
+const SHORT_BREAK_DURATION = 2 * 60;
+const LONG_BREAK_DURATION = 8 * 60;
 const POMODORO_COUNT_TO_LONG_BREAK = 4;
 
 interface generalTimerProps {
