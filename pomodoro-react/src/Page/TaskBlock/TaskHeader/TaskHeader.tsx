@@ -15,7 +15,7 @@ export function TaskHeader({ task, isInProcess }: { task: taskProp; isInProcess:
       {task && (
         <>
           <p className={styles.txt}>Задание {task.title}</p>
-          <p className={ `${styles.txt} ${styles.txtRegural} `}>{isInProcess ? "Помидор "+ task.stage : "Перерыв"}</p>
+          <p className={ `${styles.txt} ${styles.txtRegural} `}>{isInProcess ? "Помидор "+ Number(task.stage+1) : "Перерыв"}</p>
         </>
       )}{" "}
     </header>
