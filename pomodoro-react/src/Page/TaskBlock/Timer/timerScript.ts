@@ -86,6 +86,7 @@ export function pomodorFinished(
   handleStartStop: Function,
   toggleInProcess: Function
 ) {
+  console.log('pom done')
   if (!taskArr || taskArr.length < 1) return -1;
   const task: taskProp = getActiveTask(taskArr);
   const updatedTaskArr = [...taskArr];
@@ -96,8 +97,10 @@ export function pomodorFinished(
   updatedTaskArr.splice(0, 1, task);
 
   if (task.stage >= task.count) {
+    console.log("taskStatus 1")
     handleTaskFinished(task, handleDelete, handleStartStop);
   } else {
+    console.log("taskStatus 2")
     setTaskArr(updatedTaskArr);
     handleStartStop();
   }

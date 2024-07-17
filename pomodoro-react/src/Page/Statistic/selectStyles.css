@@ -80,6 +80,22 @@
   transition: transform 0.3s ease;
 }
 
+@media (max-width: 500px) {
+  .choices__item--choice{
+    
+    font-size: 14px !important;
+    line-height: 16px;
+
+    padding-left:  10px !important  ;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.choices[data-type*="select-one"] .choices__inner {
+ 
+  padding: 10px 0 10px 10px;
+}
+}
+
 
 /*  */
 

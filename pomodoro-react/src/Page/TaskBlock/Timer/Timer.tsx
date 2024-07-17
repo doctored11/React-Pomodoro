@@ -14,9 +14,9 @@ import { useTimerHooks } from "./timerHooks";
 import { Statistic } from "Page/Statistic/Statistic";
 import { StatisticTool } from "../../../utils/localStorageUtils";
 
-export const POMODORO_DURATION = 0.3 * 60;
- export const SHORT_BREAK_DURATION = 0.1 * 60;
-export const LONG_BREAK_DURATION = 2 * 60;
+export const POMODORO_DURATION = 5 * 60;
+ export const SHORT_BREAK_DURATION = 2 * 60;
+export const LONG_BREAK_DURATION = 8 * 60;
 export const POMODORO_COUNT_TO_LONG_BREAK = 4;
 
 interface TimerProps {

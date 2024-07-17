@@ -11,11 +11,11 @@ import {
 import { useTaskState } from "../../UserBlock/TaskList/Task/useTaskState";
 import { StatisticTool } from "../../../utils/localStorageUtils";
 
-const POMODORO_DURATION = 0.3 * 60;
-const SHORT_BREAK_DURATION = 0.1 * 60;
-const LONG_BREAK_DURATION = 2 * 60;
+const POMODORO_DURATION = 5 * 60;
+const SHORT_BREAK_DURATION = 2 * 60;
+const LONG_BREAK_DURATION = 8 * 60;
 const POMODORO_COUNT_TO_LONG_BREAK = 4;
-const TIME_TO_PLUS = 0.5 * 60;
+const TIME_TO_PLUS = 2 * 60;
 
 interface TimerHooksProps {
   taskArr: taskProp[];
